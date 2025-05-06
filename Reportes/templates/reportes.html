@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte</title>
+    <link rel="stylesheet" href="{% static 'style_reportes.css' %}">
+</head>
+<body>
+    <div class="reporte-container">
+        {% if reporte %}
+            <h2>Reporte de Ventas</h2>
+
+            <p class="label"> Tipo de Reporte: {{ reporte.get_periodo_display}}</p>
+            <p class="label">Fecha del Reporte: {{ reporte.fecha_inicio }}</p>
+            <p class="label">Total Ventas: {{ reporte.total_ventas }}</p>
+            <p class="label">Cantidad de Transacciones: {{ reporte.cantidad_transacciones }}</p>
+
+            <h3>Métodos de pago utilizados:</h3>
+            {% for metodo, valor in reporte.metodo_de_pago.items %}
+                <p class="data-item">{{ metodo }}: {{ valor }}</p>
+            {% endfor %}
+
+            <h3>Productos más vendidos:</h3>
+            {% for producto in reporte.productos_mas_vendidos %}
+                <p class="data-item">{{ producto.Nombre }}: {{ producto.Cantidad }}</p>
+            {% endfor %}
+        {% else %}
+            <h2>No hay reportes disponibles</h2>
+        {% endif %}
+    </div>
+</body>
+</html>

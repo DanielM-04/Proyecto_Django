@@ -1,0 +1,62 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #2c3e50;
+    margin: 0;
+    padding: 30px 15px;
+}
+
+.reporte-container {
+    background-color: #ffffff;
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #1a73e8;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    text-align: center;
+    display: block;
+    justify-content: center;
+}
+
+h3{
+    font-size: 18px;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+.label {
+    font-size: 16px;
+    margin: 8px 0;
+    color: #030303; /* Color para los valores */
+}
+
+
+
+.label-text {
+    font-weight: 700; /* Negrita */
+    color: #000; /* Negro más intenso */
+    display: inline-block;
+    min-width: 180px; /* Para alinear uniformemente los valores */
+}
+
+.data-item {
+    margin-left: 20px;
+    font-size: 15px;
+    color: #555;
+}
+
+.data-item::before {
+    content: "• ";
+    color: #3498db;
+    font-weight: bold;
+}
