@@ -23,9 +23,9 @@
             {% endfor %}
 
             <h3>Productos más vendidos:</h3>
-            {% for producto in reporte.productos_mas_vendidos %}
-                <p class="data-item">{{ producto.Nombre }}: {{ producto.Cantidad }}</p>
-            {% endfor %}
+            {% include "productosmasvendidos.html" with lista_productos=reporte.productos_mas_vendidos %}
+
+         
         {% else %}
             <h2>No hay reportes disponibles</h2>
         {% endif %}
