@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ventas Detalle</title>
+</head>
+<body>
+    <h1>{{ titulo }}</h1>
+    <h2>- {{ producto }}{{ mensaje }}</h2>
+
+    <ul>
+        <li>ID: {{ id }}</li>
+        <li>Precio Unitario: {{ precio_unitario }}</li>
+        <li>Cantidad: {{ cantidad }}</li>
+        <li>Subtotal: {{ subtotal }}</li>
+    </ul>
+
+    {% if precio_unitario < 10 %}
+        <h1>El precio unitario es menor a 10</h1>
+    {% elif precio_unitario > 10 and precio_unitario < 20 %}
+        <h1>El precio unitario es mayor a 10 y menor a 20</h1>
+    {% else %}
+        <h1>El precio unitario es mayor a 20</h1>
+    {% endif %}
+</body>
+</html>
