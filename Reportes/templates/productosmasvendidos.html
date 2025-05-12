@@ -1,5 +1,5 @@
-    {%for producto in lista_productos  %}
+    {%for key,valor in lista_productos.items %}
     
-   <p class="data-item">{{ producto.Nombre }}: {{ producto.Cantidad }}</p>
+        <p class="data-item">{{ key }}: {{ valor }}</p>
 
     {%endfor%}
