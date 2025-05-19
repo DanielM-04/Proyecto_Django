@@ -46,7 +46,7 @@ def guardarReporte(request):
             
             try:
                 reporte.save()
-                print("No se guardo")
+                print("Reporte guardado correctamente")
             except Exception as e:
                 print(f"No se pudo guardar por {e}")
 
