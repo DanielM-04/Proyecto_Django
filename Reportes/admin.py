@@ -1,9 +1,9 @@
 from django.contrib import admin
-from . models import Reporte, Clientes_Frecuente, Stoks_Critico
+from . models import Reporte, ClienteFrecuente, StockCritico
 
 
 admin.site.register(Reporte)
-admin.site.register(Clientes_Frecuente)
-admin.site.register(Stoks_Critico)
+admin.site.register(ClienteFrecuente)
+admin.site.register(StockCritico)
 
 # Register your models here.
