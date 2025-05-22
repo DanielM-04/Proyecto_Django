@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+    {% load static %}
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'style_crearReporte.css' %}">
+        <title>Crear Reporte</title>
+    </head>
+     <body>
+        
+<div class="form-container">  
+
+    <form method="POST" action="{% url 'guardar_reporte' %}">
+        {% csrf_token %}
+        <h1> Crear Reporte</h1>
+
+        <p>
+            <label> Selecciona el tipo de reporte</label>
+            {{form.periodo}}
+        </p>
+        <p>
+            <label> Ingrese el total de Ventas</label>
+            {{form.total_ventas}}
+        </p>
+        <p>
+            <label> Ingrese la cantidad de Transacciones</label>
+            {{form.cantidad_transacciones}}
+        </p>
+        <p>
+            <label> Ingrese los metodos de pago</label>
+            {{form.metodo_de_pago}}
+        </p>
+        <p>
+            <label> Ingrese los productos comprados</label>
+            {{form.productos_comprados}}
+        </p>
+
+        <button> Crear Reporte</button>
+
+    </form>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'listar_reportes' %}"><button> Atras</button> </a>
+    </div>
+
+</div>
+    </body>
+    </html>

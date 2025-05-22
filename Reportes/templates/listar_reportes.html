@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'style_listarReportes.css' %}">
+        <title>Listado de Reportes</title>
+    
+    </head>
+
+<body>
+    <div class="container">
+        <h1>Listado de Reportes Farmacy Heal</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Período</th>
+                    <th>Total Ventas</th>
+                    <th>Fecha</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for reporte in lista_reportes %}
+                <tr>
+                    <td>{{ reporte.get_periodo_display }}</td>
+                    <td>${{ reporte.total_ventas }}</td>
+                    <td>{{ reporte.fecha_creacion_reporte|date:"d/m/Y" }}</td>
+                    <td><a href="{% url 'reporte' id_reporte=reporte.id %}" class="btn btn-ver">VER</td>
+                        
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6">No hay reportes registrados</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div style="margin-top: 20px;">
+            <a href="{% url 'crear_reporte' %}" class="btn">Crear Nuevo Reporte</a>
+        </div>
+    </div>
+</body>
+</html>

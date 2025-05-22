@@ -1,4 +1,6 @@
 from django.db import models
+from Usuarios.models import Usuario  
+from Productos.models import Producto  
 
 class Reporte(models.Model):
     Elegir_Periodo = [
@@ -7,19 +9,19 @@ class Reporte(models.Model):
         ['Mensual', 'Mensual'],
         ['Anual', 'Anual']
     ]
-    periodo = models.CharField(max_length=10,choices=Elegir_Periodo)
-    total_ventas = models.DecimalField(max_digits=10, decimal_places=2)
+    periodo = models.CharField(max_length=10, choices=Elegir_Periodo)
+    total_ventas = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     cantidad_transacciones = models.IntegerField()
     metodo_de_pago = models.JSONField(default=dict)
-    productos_mas_vendidos = models.JSONField(default=list)
+    productos_comprados = models.JSONField(default=dict)
     fecha_creacion_reporte = models.DateTimeField(auto_now_add=True)
 
-class Clientes_Frecuente(models.Model):
-    cliente_id = models.IntegerField()
+class ClienteFrecuente(models.Model):
+    cliente = models.ForeignKey(Usuario, on_delete=models.CASCADE)  
     total_compras = models.IntegerField()
-    productos_mas_comprados = models.JSONField(default=list)
-
-class Stoks_Critico(models.Model):
-    umbral = models.IntegerField()
-    productos_bajo_stock = models.JSONField(default=list)
+    productos_mas_comprados = models.ManyToManyField(Producto)  
+    
+class StockCritico(models.Model):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE) 
+    umbral = models.IntegerField(default=10)
     fecha_creacion_reporte = models.DateTimeField(auto_now_add=True)
