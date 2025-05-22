@@ -30,3 +30,5 @@ class ReporteForm(forms.Form):
                         'placeholder': 'Ingrese los productos comprados en formato JSON ejemplo:{ "nombre_medicamento":cantidad, "nombre_medicamento2":cantidad},....}'                     
                 })
     )
+
+

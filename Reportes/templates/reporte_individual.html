@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte</title>
+    <link rel="stylesheet" href="{% static 'style_reportes.css' %}">
+</head>
+<body>
+    <div class="reporte-container">
+        {% if reporte %}
+        <h2>Reporte de Ventas</h2>
+           
+        {%include "modulo_reporte.html"%}
+         
+        {% else %}
+            <h2>No hay reportes disponibles</h2>
+        {% endif %}
+        <br>    
+        <div class="button-container">
+            <a href="{% url 'listar_reportes'  %}"><button class="btn btn-volver">Volver</button></a>
+            <a href="{% url 'ver_eliminar_reporte' id_eliminar=reporte.id %}"><button class="btn btn-eliminar">Eliminar</button></a>
+            <a href="{% url 'modificar_reporte' id_modificar=reporte.id %}"><button class="btn btn-modificar">Modificar</button></a>
+        </div>
+    
+
+    </div>
+    
+
+</body>
+</html>
