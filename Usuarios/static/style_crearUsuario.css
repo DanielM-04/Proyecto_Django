@@ -1,0 +1,101 @@
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #2c3e50;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    width: 100%;
+    max-width: 680px; /* Ancho intermedio perfecto */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #1a73e8;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px; /* Tamaño compacto pero legible */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all 0.2s;
+    background-color: #f9f9f9;
+    font-family: inherit;
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Placeholder estilo JSON */
+textarea::placeholder {
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #0d62c9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 30px;
+        max-width: 95%; /* En móviles usa casi todo el ancho */
+    }
+    
+    body {
+        padding: 30px 10px;
+    }
+}

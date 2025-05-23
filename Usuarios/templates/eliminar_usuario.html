@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style_crearUsuario.css' %}">
+    <title>Eliminar Usuario</title>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Eliminar Usuario</h1>
+        <p>¿Estás seguro de que deseas eliminar el usuario {{ usuario.username }}?</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="submit" value="Eliminar usuario">
+        </form>
+        <a href="{% url 'listar_usuarios' %}">Volver</a>
+    </div>
+</body>
+</html>

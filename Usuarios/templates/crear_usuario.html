@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style_crearUsuario.css' %}">
+    <title>Crear Usuario</title>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Crear Usuario</h1>
+        <form method="post">
+            {% csrf_token %}
+                <p>
+                <label>Nombre de usuario:</label>
+                <br> {{ formulario.username }} <br>
+                </p>
+                <p>
+                <label>Correo electrónico:</label>
+                <br> {{ formulario.email }}<br>
+                </p>
+                <p>
+                <label>Contraseña:</label>
+                <br> {{ formulario.password }}<br>
+                </p>
+                <p>
+                <label>Teléfono:</label>
+                <br> {{ formulario.telefono }}<br>
+                </p>
+                <p>
+                <label>Dirección:</label>
+                <br> {{ formulario.direccion }}<br><br>
+                </p>
+            <input type="submit" value="Crear usuario">
+        </form>
+</body>
+</html>
