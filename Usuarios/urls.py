@@ -3,6 +3,6 @@ from .views import saludar
 # from .views import
 
 urlpatterns = [
-    path('', saludar, name="usuarios")
+    path('', saludar, name="usuariosA")
     
 ]
