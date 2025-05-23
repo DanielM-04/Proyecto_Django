@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils import timezone
 from .models import Carrito, Producto, Categoria, ItemCarrito, Usuario
 
 def get_carrito():
@@ -18,71 +19,29 @@ def get_carrito():
         }
     return data
 
-def get_items_carrito():
-    try:
-        carrito_item = ItemCarrito.objects.all()
-        data = {
-            'titulo': 'Página Principal',
-            'mensaje': 'Carrito.',
-            'carrito_item': carrito_item,
-            'total_ventas': ItemCarrito.subtotal()
-        }
-    except Exception as e:
-        data = {
-            'titulo': 'Error',
-            'mensaje': str(e)
-        }
-    return data
-
-def mostrar_productos(request):
-    data = get_carrito()
-    productos = Producto.objects.all()
-    categorias = Categoria.objects.all()
-    data['productos'] = productos
-    data['categorias'] = categorias
-    return render(request, 'mostrar_productos.html', data)
-
-def home(request):
-    data = get_carrito()
-    return render(request, 'index.html', data)
-
-def ventas(request):
-    data = {
-        'titulo': 'Página de Ventas',
-        'mensaje': 'Bienvenido a la página de ventas.'
-    }
-    return render(request, 'ventas.html', data)
-
-def obtener_venta_carrito(request, id):
-    try:
-        carrito = Carrito.objects.get(id=id)
-        
-        if not carrito:
-            return HttpResponse("Carrito no encontrado.", status=404)
-        
-        item = ItemCarrito.objects.filter(carrito=carrito)
-        if not item:
-            return HttpResponse("No hay items en el carrito.", status=404)
-        
-        data = {
-            'titulo': 'Detalles del Carrito',
-            'mensaje': 'Detalles del carrito.',
-            'carrito': carrito,
-            'item': item
-        }
-    except Carrito.DoesNotExist:
-        data = {
-            'titulo': 'Error',
-            'mensaje': 'Carrito no encontrado.'
-        }
-        
-    print(f"ID del carrito: {id}")
-    return render(request, 'ventas_detalle.html', data)
-
 def paramVentasGenerales(request):
     data = get_carrito()
     return render(request, 'ventas_generales.html', data)
 
+# No se va a usar 
+def generar_usuario(request):
+    try:
+        nuevo_usuario = Usuario(
+            username='usuario_prueba',
+            password='contraseña_segura'
+        )
+        
+        # Asegurar que no existe
+        if Usuario.objects.filter(username=nuevo_usuario.username).exists():
+            return HttpResponse("El usuario ya existe.", status=400)
+        
+        nuevo_usuario.set_password(nuevo_usuario.password)
+        nuevo_usuario.save()
+        return HttpResponse("Usuario generado exitosamente.")
+    except Exception as e:
+        return HttpResponse(f"Error: {e}", status=500)
+
+# No se va a usar 
 def generar_registro(request):
     nombre = 'acetaminofen'
     descripcion = 'pastas'
@@ -103,57 +62,91 @@ def generar_registro(request):
     nuevo_registro.save()
     return HttpResponse("Registro generado exitosamente.")
 
-def generar_item_carrito(request):
+def generar_carrito(request, id=None):
     try:
-        # Toma primer usuario
-        usuario = Usuario.objects.first()
-        if not usuario:
-            return HttpResponse("No hay usuarios creados.", status=400)
-
-        # Toma primera categoria
-        categoria = Categoria.objects.first()
-        if not categoria:
-            categoria = Categoria(nombre="Categoría por defecto")
-            categoria.save()
-
-        # Crear el producto correctamente con todos los campos requeridos
-        producto = Producto(
-            nombre="Ejemplo",
-            descripcion="Producto de prueba",
-            categoria=categoria,
-            precio=81,
-            stock=50,
-            fecha_caducidad="2030-12-31"
+        usuario = Usuario.objects.get(id=id)
+        if usuario:
+            # Verifica si ya existe un carrito para el usuario
+            carrito_existente = Carrito.objects.filter(usuario=usuario).first()
+            if carrito_existente:
+                return HttpResponse("Ya existe un carrito para este usuario.")
+        
+        nuevo_carrito = Carrito(
+            usuario=usuario
         )
-        producto.save()
+        nuevo_carrito.save()
+        return HttpResponse("Carrito generado exitosamente.")
+    except Usuario.DoesNotExist:
+        return HttpResponse(f"Error: Usuario con id {id} no encontrado.", status=404)
+    except Exception as e:
+        return HttpResponse(f"Error: {e}", status=500)
 
-        # Crear el carrito asociado al usuario
-        carrito = Carrito(usuario=usuario)
-        carrito.save()
-
+def agregar_item_carrito(request, id_carrito, id_producto, cantidad=1):
+    try:
+        carrito = Carrito.objects.get(id=id_carrito)
+        producto = Producto.objects.get(id=id_producto)
+        usuario = carrito.usuario
+        
         # Crear el item del carrito
         nuevo_item_carrito = ItemCarrito(
             carrito=carrito,
             producto=producto,
-            cantidad=21,
-            precio_unitario=81
+            cantidad=cantidad,
+            precio_unitario=producto.precio
         )
         nuevo_item_carrito.save()
 
-        return HttpResponse("Item generado en carrito exitosamente.")
-
+        return HttpResponse("Item agregado al carrito exitosamente.")
+    except Usuario.DoesNotExist:
+        return HttpResponse(f"Error: Usuario con id {id_carrito} no encontrado.", status=404)
+    except Carrito.DoesNotExist:
+        return HttpResponse(f"Error: Carrito con id {id_carrito} no encontrado.", status=404)
+    except Producto.DoesNotExist:
+        return HttpResponse(f"Error: Producto con id {id_producto} no encontrado.", status=404)
     except Exception as e:
         return HttpResponse(f"Error: {e}", status=500)
+    
+def obtener_venta_carrito(request, id):
+    try:
+        carrito = Carrito.objects.get(id=id)
+        
+        items_del_carrito = ItemCarrito.objects.filter(carrito=carrito)
+        
+        data = {
+            'titulo': 'Detalles del Carrito',
+            'mensaje': 'Detalles del carrito.',
+            'carrito': carrito,
+            'item': items_del_carrito
+        }
+    except Carrito.DoesNotExist:
+        data = {
+            'titulo': 'Error',
+            'mensaje': 'Carrito no encontrado.'
+        }
+        
+    print(f"ID del carrito: {id}")
+    return render(request, 'ventas_detalle.html', data)
 
-def generar_carrito(request):
-    usuario = Usuario()
-    usuario.save()
-    fecha_creacion = '2500-10-08'
+def get_items_carrito():
+    try:
+        carrito_item = ItemCarrito.objects.all()
+        data = {
+            'titulo': 'Página Principal',
+            'mensaje': 'Carrito.',
+            'carrito_item': carrito_item,
+            'total_ventas': ItemCarrito.subtotal
+        }
+    except Exception as e:
+        data = {
+            'titulo': 'Error',
+            'mensaje': str(e)
+        }
+    return data
 
-    nuevo_carrito = Carrito(
-        usuario = usuario,
-        fecha_creacion = fecha_creacion
-    )
-
-    nuevo_carrito.save()
-    return HttpResponse("Item generado en carrito exitosamente.")
+def mostrar_productos(request):
+    data = get_carrito()
+    productos = Producto.objects.all()
+    categorias = Categoria.objects.all()
+    data['productos'] = ', '.join([str(producto) for producto in productos])
+    data['categorias'] = ', '.join([str(categoria) for categoria in categorias])
+    return render(request, 'mostrar_productos.html', data)
