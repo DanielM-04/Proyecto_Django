@@ -21,17 +21,17 @@
         {% if item %}
             <h3>Items en el carrito:</h3>
             <ul>
-                {% for un_item_del_carrito in item %}
+                {% for item_carrito in item %}
                     <li>
-                        Producto: {{ un_item_del_carrito.producto.nombre }} (ID del Item: {{ un_item_del_carrito.id }})
+                        Producto: {{ item_carrito.producto.nombre }} (ID del Item: {{ item_carrito.id }})
                         <ul>
-                            <li>Precio Unitario: ${{ un_item_del_carrito.precio_unitario }}</li>
-                            <li>Cantidad: {{ un_item_del_carrito.cantidad }}</li>
-                            <li>Subtotal: ${{ un_item_del_carrito.subtotal }}</li>
+                            <li>Precio Unitario: ${{ item_carrito.precio_unitario }}</li>
+                            <li>Cantidad: {{ item_carrito.cantidad }}</li>
+                            <li>Subtotal: ${{ item_carrito.subtotal }}</li>
                         </ul>
-                        {% if un_item_del_carrito.precio_unitario < 10 %}
+                        {% if item_carrito.precio_unitario < 10 %}
                             <p><em>Precio unitario de este item es menor a 10.</em></p>
-                        {% elif un_item_del_carrito.precio_unitario >= 10 and un_item_del_carrito.precio_unitario < 20 %}
+                        {% elif item_carrito.precio_unitario >= 10 and item_carrito.precio_unitario < 20 %}
                             <p><em>Precio unitario de este item es mayor o igual a 10 y menor a 20.</em></p>
                         {% else %}
                             <p><em>Precio unitario de este item es mayor o igual a 20.</em></p>
