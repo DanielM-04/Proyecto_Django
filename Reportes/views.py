@@ -13,8 +13,6 @@ import datetime
 
 
 
-
-
 def generar_pdf_unico(request, id_generar_reporte):
     reporte = Reporte.objects.get(id=id_generar_reporte)
     html_string = render_to_string('reporte_pdf.html',{'reporte': reporte})
@@ -45,14 +43,6 @@ def generar_pdf(request):
         print("Sucedio un error")
     
     return response_content
-
-
-
-
-
-
-
-
 
 
 def Saludar(request):
@@ -114,10 +104,22 @@ def guardarReporte(request):
 
 def traerTodosReportes(request):
     lista_reportes = Reporte.objects.all()
+    monto_minimo = request.GET.get('monto_minimo')
+    monto_maximo = request.GET.get('monto_maximo')
+    
+    if monto_minimo:
+        lista_reportes = lista_reportes.filter(total_ventas__gte=monto_minimo)
+    if monto_maximo:
+        lista_reportes = lista_reportes.filter(total_ventas__lte=monto_maximo)
     print("Total reportes:", Reporte.objects.count())
     return render(request,'listar_reportes.html',{'lista_reportes':lista_reportes})
 
 
+
+
+
+
+#Implementacion para funcion de eliminar
 def traerReporteIndividual(request, id_reporte):
     reporte = Reporte.objects.get(id=id_reporte)
     return reporte

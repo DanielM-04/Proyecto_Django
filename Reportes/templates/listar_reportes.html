@@ -12,6 +12,16 @@
     </head>
 
 <body>
+    <form method="get" style="margin-bottom: 20px;">
+        <label>Desde $:</label>
+        <input type="number" name="monto_minimo" value="{{ request.GET.monto_minimo }}">
+
+        <label>Hasta $:</label>
+        <input type="number" name="monto_maximo" value="{{ request.GET.monto_maximo }}">
+
+        <button type="submit" class="btn">Filtrar</button>
+        <a href="{% url 'listar_reportes' %}" class="btn btn-ver">Limpiar</a>
+    </form>
     <div class="container">
         <h1>Listado de Reportes Farmacy Heal</h1>
         
