@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Producto App{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+</head>
+<body>
+    <h1>{% block header %}Gestión de Productos{% endblock %}</h1>
+
+    <div>
+        
+    </div>
+
+    <nav>
+        <form action="{% url 'producto:lista' %}" method="get">
+            <button type="submit">Inicio</button>
+        </form>
+        <form method="get" action="{% url 'producto:buscar' %}">
+            <button type="submit">Buscar</button>
+        </form>
+        <form action="{% url 'producto:crear' %}" method="get">
+            <button type="submit">Crear Producto</button>
+        </form>
+        <form action="{% url 'producto:crud_categorias' %}" method="get">
+            <button type="submit">Crear categoria</button>
+        </form>
+        <form action="{% url 'producto:ranking' %}" method="get">
+            <button type="submit">Ranking</button>
+        </form>
+        <form action="{% url 'producto:comparar' %}" method="get">
+            <button type="submit">Comparar</button>
+        </form>
+    </nav>
+
+    <hr>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

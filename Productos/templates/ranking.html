@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Ranking de Productos{% endblock %}
+
+{% block content %}
+<h2>Productos Mejor Valorados</h2>
+<ol>
+    {% for producto in productos %}
+    <li>
+        {{ producto.nombre }} - 
+        {% for i in "12345"|slice:":5" %}
+            {% if forloop.counter <= producto.ranking|floatformat:0 %}
+                <i class="fas fa-star" style="color: gold;"></i>
+            {% else %}
+                <i class="far fa-star" style="color: lightgray;"></i>
+            {% endif %}
+        {% endfor %}
+        ({{ producto.ranking|default:"N/A" }} estrellas)
+
+        <form method="POST" action="{% url 'producto:detalle' producto.id %}">
+            {% csrf_token %}
+            <button type="submit">Ver</button>
+        </form>
+    </li>
+    {% endfor %}
+</ol>
+
+{% endblock %}

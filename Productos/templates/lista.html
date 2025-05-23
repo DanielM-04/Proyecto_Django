@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Lista de Productos{% endblock %}
+
+{% block content %}
+<h2>Lista de Productos</h2>
+
+{% if productos %}
+    <ul>
+        {% for producto in productos %}
+        <li>
+            {{ producto.nombre }} - ${{ producto.precio }}
+            <form method="POST" action="{% url 'producto:detalle' producto.id %}">
+                {% csrf_token %}
+                <button type="submit">Ver</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay productos registrados.</p>
+{% endif %}
+
+<form method="POST" action="{% url 'producto:crear' %}">
+    {% csrf_token %}
+    <button type="submit">Crear Producto</button>
+</form>
+
+<form method="POST" action="{% url 'producto:buscar' %}">
+    {% csrf_token %}
+    <button type="submit">Buscar / Filtrar</button>
+</form>
+
+<form method="POST" action="{% url 'producto:ranking' %}">
+    {% csrf_token %}
+    <button type="submit">Ver Ranking</button>
+</form>
+
+<form method="POST" action="{% url 'producto:comparar' %}">
+    {% csrf_token %}
+    <button type="submit">Comparar Productos</button>
+</form>
+{% endblock %}

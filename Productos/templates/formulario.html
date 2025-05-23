@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ accion }} Producto</title>
+</head>
+<body>
+    <h1>{{ accion }} Producto</h1>
+
+    <form method="POST"enctype="multipart/form-data">
+        {% csrf_token %}
+      
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" id="nombre" required
+               value="{{ producto.nombre|default:'' }}"><br><br>
+
+        <label for="imagen">Imagen:</label>
+        <input type="file" name="imagen" id="imagen"><br><br>       
+
+        <label for="descripcion">Descripción:</label>
+        <textarea name="descripcion" id="descripcion" required>{{ producto.descripcion|default:'' }}</textarea><br><br>
+
+        <label for="precio">Precio:</label>
+        <input type="number" step="0.01" name="precio" id="precio" required
+               value="{{ producto.precio|default:'' }}"><br><br>
+
+        <label for="stock">Stock:</label>
+        <input type="number" name="stock" id="stock" required
+               value="{{ producto.stock|default:'' }}"><br><br>
+
+        <label for="fecha_caducidad">Fecha de Caducidad:</label>
+        <input type="date" name="fecha_caducidad" id="fecha_caducidad" required
+        value="{{ producto.fecha_caducidad|date:'Y-m-d'|default:'' }}"><br><br>
+ 
+
+        <label for="categoria">Categoría:</label>
+        <select name="categoria" id="categoria">
+            <option value="">--- Selecciona una categoría ---</option>
+            {% for cat in categorias %}
+                <option value="{{ cat.id }}"
+                    {% if producto.categoria.id == cat.id %}selected{% endif %}>
+                    {{ cat.nombre }}
+                </option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="ranking">Ranking (1 a 5):</label>
+        <input type="number" name="ranking" id="ranking" min="1" max="5" step="0.1" required
+               value="{{ producto.ranking|default:'1' }}"><br><br>
+        
+
+        <button type="submit">{{ accion }}</button>
+
+    </form>
+
+    <form method="POST" action="{% url 'producto:lista' %}">
+        {% csrf_token %}
+        <button type="submit">Volver a la lista</button>
+    </form>
+</body>
+</html>
+

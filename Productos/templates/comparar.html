@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Comparar Productos{% endblock %}
+
+{% block content %}
+<h2>Comparación Calidad-Precio</h2>
+
+{% if productos %}
+    <ul>
+        {% for producto in productos %}
+        <li>
+            {{ producto.nombre }} - Precio: ${{ producto.precio }} - Ranking: {{ producto.ranking }}
+            <form method="POST" action="{% url 'producto:detalle' producto.id %}">
+                {% csrf_token %}
+                <button type="submit">Ver</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay productos para comparar.</p>
+{% endif %}
+
+<form method="POST" action="{% url 'producto:lista' %}">
+    {% csrf_token %}
+    <button type="submit">Volver a la lista</button>
+</form>
+{% endblock %}
+
