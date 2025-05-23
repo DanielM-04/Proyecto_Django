@@ -3,25 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas Detalle</title>
+    <title>{{ titulo }}</title>
 </head>
 <body>
     <h1>{{ titulo }}</h1>
-    <h2>- {{ producto }}{{ mensaje }}</h2>
+    <h2>{{ mensaje }}</h2>
 
-    <ul>
-        <li>ID: {{ id }}</li>
-        <li>Precio Unitario: {{ precio_unitario }}</li>
-        <li>Cantidad: {{ cantidad }}</li>
-        <li>Subtotal: {{ subtotal }}</li>
-    </ul>
+    {% if carrito %}
+        <h3>Detalles del Carrito:</h3>
+        <ul>
+            <li>ID del Carrito: {{ carrito.id }}</li>
+            <li>Usuario: {{ carrito.usuario.username }}</li>
+            <li>Fecha de creación: {{ carrito.fecha_creacion }}</li>
+            <li>Total del Carrito: ${{ carrito.total_carrito }}</li>
+        </ul>
 
-    {% if precio_unitario < 10 %}
-        <h1>El precio unitario es menor a 10</h1>
-    {% elif precio_unitario > 10 and precio_unitario < 20 %}
-        <h1>El precio unitario es mayor a 10 y menor a 20</h1>
+        {% if item %}
+            <h3>Items en el carrito:</h3>
+            <ul>
+                {% for un_item_del_carrito in item %}
+                    <li>
+                        Producto: {{ un_item_del_carrito.producto.nombre }} (ID del Item: {{ un_item_del_carrito.id }})
+                        <ul>
+                            <li>Precio Unitario: ${{ un_item_del_carrito.precio_unitario }}</li>
+                            <li>Cantidad: {{ un_item_del_carrito.cantidad }}</li>
+                            <li>Subtotal: ${{ un_item_del_carrito.subtotal }}</li>
+                        </ul>
+                        {% if un_item_del_carrito.precio_unitario < 10 %}
+                            <p><em>Precio unitario de este item es menor a 10.</em></p>
+                        {% elif un_item_del_carrito.precio_unitario >= 10 and un_item_del_carrito.precio_unitario < 20 %}
+                            <p><em>Precio unitario de este item es mayor o igual a 10 y menor a 20.</em></p>
+                        {% else %}
+                            <p><em>Precio unitario de este item es mayor o igual a 20.</em></p>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay items en este carrito.</p>
+        {% endif %}
     {% else %}
-        <h1>El precio unitario es mayor a 20</h1>
+        <p>No se encontró el carrito.</p>
     {% endif %}
 </body>
 </html>

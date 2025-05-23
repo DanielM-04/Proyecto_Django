@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import obtener_venta_carrito, generar_registro, paramVentasGenerales, agregar_item_carrito, generar_carrito, mostrar_productos, generar_usuario
+from .views import obtener_venta_carrito, generar_producto, mostrar_carritos, agregar_item_carrito, generar_carrito, mostrar_productos, generar_usuario
 
 urlpatterns = [
     path('ventas/<int:id>/', obtener_venta_carrito, name='ventas_detalle'),
-    path('ventas-generales/', paramVentasGenerales, name='ventas_generales'),
-    path('generar-registro/', generar_registro, name='generar_registro'),
+    path('ventas-generales/', mostrar_carritos, name='ventas_generales'),
+    path('generar-registro/', generar_producto, name='generar_registro'),
     path('generar-usuario/', generar_usuario, name='generar-usuario'),
     
     path('generar-carrito/<int:id>/', generar_carrito, name='generar-carrito'),

@@ -11,7 +11,8 @@ class Carrito(models.Model):
 
     @property
     def total_carrito(self):
-        return sum(item.subtotal for item in self.items.all())
+        items = ItemCarrito.objects.filter(carrito=self)
+        return sum(item.subtotal for item in items.all())
 
     @classmethod
     def total_ventas(cls):
