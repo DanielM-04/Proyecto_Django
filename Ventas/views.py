@@ -34,6 +34,14 @@ def get_items_carrito():
         }
     return data
 
+def mostrar_productos(request):
+    data = get_carrito()
+    productos = Producto.objects.all()
+    categorias = Categoria.objects.all()
+    data['productos'] = productos
+    data['categorias'] = categorias
+    return render(request, 'mostrar_productos.html', data)
+
 def home(request):
     data = get_carrito()
     return render(request, 'index.html', data)
@@ -45,17 +53,22 @@ def ventas(request):
     }
     return render(request, 'ventas.html', data)
 
-def paramVentas(request, id):
+def obtener_venta_carrito(request, id):
     try:
         carrito = Carrito.objects.get(id=id)
+        
+        if not carrito:
+            return HttpResponse("Carrito no encontrado.", status=404)
+        
+        item = ItemCarrito.objects.filter(carrito=carrito)
+        if not item:
+            return HttpResponse("No hay items en el carrito.", status=404)
+        
         data = {
             'titulo': 'Detalles del Carrito',
+            'mensaje': 'Detalles del carrito.',
             'carrito': carrito,
-            'id': carrito.id,
-            'producto': carrito.producto,
-            'cantidad': carrito.cantidad,
-            'precio_unitario': carrito.precio_unitario,
-            'subtotal': carrito.subtotal
+            'item': item
         }
     except Carrito.DoesNotExist:
         data = {
