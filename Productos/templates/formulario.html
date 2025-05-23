@@ -1,10 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
+
 <html>
 <head>
     <title>{{ accion }} Producto</title>
+    <link rel="stylesheet" href="{% static 'produbas.css' %}">
+    
 </head>
 <body>
-    <h1>{{ accion }} Producto</h1>
+    <div class="prodcrud">
+    <h1>{{ accion }} Producto >:v</h1>
 
     <form method="POST"enctype="multipart/form-data">
         {% csrf_token %}
@@ -57,6 +62,7 @@
         {% csrf_token %}
         <button type="submit">Volver a la lista</button>
     </form>
+    </div>
 </body>
 </html>
 

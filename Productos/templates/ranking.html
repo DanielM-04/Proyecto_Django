@@ -1,27 +1,36 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'ranking.css' %}">
+{% endblock %}
+
 {% block title %}Ranking de Productos{% endblock %}
 
 {% block content %}
-<h2>Productos Mejor Valorados</h2>
-<ol>
-    {% for producto in productos %}
-    <li>
-        {{ producto.nombre }} - 
-        {% for i in "12345"|slice:":5" %}
-            {% if forloop.counter <= producto.ranking|floatformat:0 %}
-                <i class="fas fa-star" style="color: gold;"></i>
-            {% else %}
-                <i class="far fa-star" style="color: lightgray;"></i>
-            {% endif %}
+<div class="ranking-container">
+    <h2>⭐Productos Mejor Valorados⭐</h2>
+    <ol>
+        {% for producto in productos %}
+        <li>
+            <span class="producto-nombre">{{ producto.nombre }}</span>
+            <span class="estrellas">
+                {% for i in "12345"|slice:":5" %}
+                    {% if forloop.counter <= producto.ranking|floatformat:0 %}
+                        <i class="fas fa-star"></i>
+                    {% else %}
+                        <i class="far fa-star"></i>
+                    {% endif %}
+                {% endfor %}
+            </span>
+            <span class="puntuacion">({{ producto.ranking|default:"N/A" }} estrellas)</span>
+
+            <form method="POST" action="{% url 'producto:detalle' producto.id %}" class="estrella">
+                {% csrf_token %}
+                <button type="submit">Ver</button>
+            </form>
+        </li>
         {% endfor %}
-        ({{ producto.ranking|default:"N/A" }} estrellas)
-
-        <form method="POST" action="{% url 'producto:detalle' producto.id %}">
-            {% csrf_token %}
-            <button type="submit">Ver</button>
-        </form>
-    </li>
-    {% endfor %}
-</ol>
-
+    </ol>
+</div>
 {% endblock %}

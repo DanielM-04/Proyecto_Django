@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'busc.css' %}">
+{% endblock %}
+
 {% block title %}Buscar Productos{% endblock %}
 
 {% block content %}
-<h2>Buscar Productos</h2>
+<h2>Buscar Productos🔎</h2>
 
-<form method="POST">
+<form method="POST" class="pepe">
     {% csrf_token %}
     <input type="text" name="query" placeholder="Buscar por nombre..." value="{{ query|default:'' }}">
     
@@ -18,6 +23,8 @@
     <button type="submit">Buscar</button>
 </form>
 
+<div class="pepe">
+
 {% if resultados %}
     <h3>Resultados:</h3>
     <ul>
@@ -27,10 +34,11 @@
     </ul>
 {% elif query or categoria_seleccionada %}
 
-    <p>No se encontraron resultados.</p>
+    <p>No hay no esta no existe XD.</p>
 {% endif %}
+</div>
 
-<form method="POST" action="{% url 'producto:lista' %}">
+<form method="POST" action="{% url 'producto:lista' %}" class="pepe">
     {% csrf_token %}
     <button type="submit">Volver a la lista</button>
 </form>

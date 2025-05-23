@@ -1,37 +1,45 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Producto App{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'produbas.css' %}">
+    {% block extra_css %}{% endblock %}
 
 </head>
 <body>
-    <h1>{% block header %}Gestión de Productos{% endblock %}</h1>
+    <h1>{% block header %}🤩Gestión de Productos🤩{% endblock %}</h1>
 
-    <div>
+    <nav class="navbar">
+        <ul class="nav-list">
         
-    </div>
+        <li><form action="{% url 'producto:lista' %}" method="get">
+            <button type="submit" class="nav-btn">Inicio</button>
+        </form></li>
 
-    <nav>
-        <form action="{% url 'producto:lista' %}" method="get">
-            <button type="submit">Inicio</button>
-        </form>
-        <form method="get" action="{% url 'producto:buscar' %}">
-            <button type="submit">Buscar</button>
-        </form>
-        <form action="{% url 'producto:crear' %}" method="get">
-            <button type="submit">Crear Producto</button>
-        </form>
-        <form action="{% url 'producto:crud_categorias' %}" method="get">
-            <button type="submit">Crear categoria</button>
-        </form>
-        <form action="{% url 'producto:ranking' %}" method="get">
-            <button type="submit">Ranking</button>
-        </form>
-        <form action="{% url 'producto:comparar' %}" method="get">
-            <button type="submit">Comparar</button>
-        </form>
+        <li><form method="get" action="{% url 'producto:buscar' %}">
+            <button type="submit" class="nav-btn">Buscar</button>
+        </form></li>
+
+        <li><form action="{% url 'producto:crear' %}" method="get">
+            <button type="submit" class="nav-btn">Crear Producto</button>
+        </form></li>
+
+        <li><form action="{% url 'producto:crud_categorias' %}" method="get">
+            <button type="submit" class="nav-btn">Crear categoria</button>
+        </form></li>
+
+        <li><form action="{% url 'producto:ranking' %}" method="get">
+            <button type="submit" class="nav-btn">Ranking</button>
+        </form></li>
+
+        <li><form action="{% url 'producto:comparar' %}" method="get">
+            <button type="submit" class="nav-btn">Comparar</button>
+        </form></li>
+        </ul>
+        
     </nav>
 
     <hr>
