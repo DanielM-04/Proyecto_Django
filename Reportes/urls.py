@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import goIndex,Saludar,traerReporte, crearReporte, guardarReporte, verEliminarReporte,traerTodosReportes,modificarReporte, eliminarReporte,guardarCambios
+from .views import goIndex,Saludar,traerReporte, crearReporte, guardarReporte, verEliminarReporte,traerTodosReportes,modificarReporte, eliminarReporte,guardarCambios, generar_pdf, generar_pdf_unico
 
 urlpatterns = [
     path('index/', goIndex, name= 'goIndex'),
@@ -13,5 +13,8 @@ urlpatterns = [
     path('eliminar_reporte/<int:id_eliminar>/',eliminarReporte, name="eliminar_reporte"),
     
     path('modificar_reporte/<int:id_modificar>/', modificarReporte, name="modificar_reporte"),
-    path('actualizar_reporte/<int:id_modificar>/', guardarCambios, name="guardar_cambios")
+    path('actualizar_reporte/<int:id_modificar>/', guardarCambios, name="guardar_cambios"),
+
+    path('drogueria_pdf/', generar_pdf, name="pdf_drogueria"),
+    path('descargar_pdf/<int:id_generar_reporte>', generar_pdf_unico, name="descargar")
 ]

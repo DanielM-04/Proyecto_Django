@@ -1,10 +1,59 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
 from .models import Reporte
+
 from .forms import ReporteForm
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa
+
 
 import json
 import datetime
+
+
+
+
+
+
+def generar_pdf_unico(request, id_generar_reporte):
+    reporte = Reporte.objects.get(id=id_generar_reporte)
+    html_string = render_to_string('reporte_pdf.html',{'reporte': reporte})
+
+    response_content = HttpResponse(content_type='application/pdf')
+    response_content['Content-Disposition'] = f'attachment; filename = "reporte id{id_generar_reporte}.pdf" '
+
+    pisa_html_to_pdf = pisa.CreatePDF(html_string, dest=response_content)
+
+    if pisa_html_to_pdf.err:
+        return HttpResponse(f"Error al generar el pdf ")
+    
+    return response_content
+
+
+def generar_pdf(request):
+    reporte_drogueria = Reporte.objects.all()
+    html_reporte = render_to_string('drogueria_pdf.html', {'reportes':reporte_drogueria})
+
+    response_content = HttpResponse(content_type='application/pdf')
+    dia_acutal = datetime.date.today().day
+    mes_actual = datetime.date.today().month
+    response_content['Content-Disposition'] = f'attachment; filename = "reporteDrogueria_{dia_acutal}_x|{mes_actual}.pdf"'
+
+    pisa_to_pdf = pisa.CreatePDF(html_reporte, dest=response_content)
+
+    if pisa_to_pdf.err:
+        print("Sucedio un error")
+    
+    return response_content
+
+
+
+
+
+
+
+
+
 
 def Saludar(request):
     return HttpResponse("Hol mundo")

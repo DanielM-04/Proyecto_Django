@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content%}
 <!DOCTYPE html>
 {% load static %}
     <html lang="en">
@@ -19,6 +21,9 @@
                     <th>Período</th>
                     <th>Total Ventas</th>
                     <th>Fecha</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     
                 </tr>
             </thead>
@@ -29,6 +34,8 @@
                     <td>${{ reporte.total_ventas }}</td>
                     <td>{{ reporte.fecha_creacion_reporte|date:"d/m/Y" }}</td>
                     <td><a href="{% url 'reporte' id_reporte=reporte.id %}" class="btn btn-ver">VER</td>
+                    <td> </td>
+
                         
                     </td>
                 </tr>
@@ -42,7 +49,9 @@
         
         <div style="margin-top: 20px;">
             <a href="{% url 'crear_reporte' %}" class="btn">Crear Nuevo Reporte</a>
+            <a href="{% url 'pdf_drogueria' %}" class="btn">Generar PDF</a>
         </div>
     </div>
 </body>
 </html>
+{%endblock%}
