@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
     {% load static %}
     <html lang="en">
     <head>
@@ -7,9 +7,9 @@
         <link rel="stylesheet" href="{% static 'style_crearReporte.css' %}">
         <title>Crear Reporte</title>
     </head>
-    <body>
+     <body>
         
-<div class="form-container">  <!-- Contenedor con estilos -->
+<div class="form-container">  
 
     <form method="POST" action="{% url 'guardar_reporte' %}">
         {% csrf_token %}

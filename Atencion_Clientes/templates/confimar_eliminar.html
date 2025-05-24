@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style_eliminar.css' %}">
+
+<div class="container">
+    <h1>Eliminar Ticket #{{ ticket.id }}</h1>
+    <p class="mensaje">¿Estás seguro que quieres eliminar el ticket con asunto: <strong>{{ ticket.asunto }}</strong>?</p>
+
+    <form method="post" class="form-eliminar">
+        {% csrf_token %}
+        <div class="botones">
+            <button type="submit" class="btn eliminar">Eliminar</button>
+            <a href="{% url 'traer_tickets' %}" class="btn cancelar">Cancelar</a>
+        </div>
+    </form>
+</div>

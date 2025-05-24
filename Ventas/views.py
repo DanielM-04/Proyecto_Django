@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+<<<<<<< HEAD
 from django.utils import timezone
 from .models import Carrito, Producto, Categoria, ItemCarrito, Usuario
 
@@ -152,3 +153,11 @@ def generar_producto(request):
     )
     nuevo_registro.save()
     return HttpResponse("Registro generado exitosamente.")
+=======
+from django.http import HttpResponse
+# Create your views here.
+
+
+def saludar(request):
+    return render(request, 'index_ventas.html', {"saludo":"hola desde la app de ventas"})
+>>>>>>> Productos

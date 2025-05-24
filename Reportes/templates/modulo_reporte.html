@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporte</title>
+    <link rel="stylesheet" href="{% static 'style_reportes.css' %}">
+</head>
+<div class="reporte-container">
+        
+
+    <p class="label"> Tipo de Reporte: {{ reporte.get_periodo_display}}</p>
+
+    <p class="label">Fecha del Reporte: {{ reporte.fecha_creacion_reporte |date:"d/m/Y"}}</p>
+    <p class="label">Total Ventas: {{ reporte.total_ventas }}</p>
+    <p class="label">Cantidad de Transacciones: {{ reporte.cantidad_transacciones }}</p>
+
+    <h3>Métodos de pago utilizados:</h3>
+    {% for metodo, valor in reporte.metodo_de_pago.items %}
+    <p class="data-item">{{ metodo }}: {{ valor }}</p>
+    {% endfor %}
+
+    <h3>Productos vendidos:</h3>
+    {% include "productosmasvendidos.html" with lista_productos=reporte.productos_comprados %}
+</div>

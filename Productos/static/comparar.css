@@ -1,0 +1,78 @@
+.comparar-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+h2 {
+    font-size: 25px;
+    color: #19ad86;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+.lista-comparar {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-comparar {
+    background-color: #f8f9fa;
+    margin-bottom: 15px;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.item-comparar form button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.item-comparar form button:hover {
+    background-color: #0c5fd3;
+}
+
+.volver-form {
+    margin-top: 25px;
+}
+
+.volver-form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.volver-form button:hover {
+    background-color: #2980b9;
+}
+
+.mensaje-vacio {
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}
