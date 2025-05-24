@@ -6,13 +6,17 @@ body {
     padding: 30px 15px;
 }
 
-.reporte-container {
-    background-color: #ffffff;
-    padding: 40px;
-    max-width: 900px;
-    margin: auto;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+.button-group form,
+.button-group a {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.item-actions form {
+    display: inline;
+    /* Para que el botón de eliminar item esté en la misma línea */
+    margin-left: 15px;
 }
 
 h2 {
@@ -53,10 +57,14 @@ h3 {
 
 /* Estilos para los botones */
 .button-container {
-    display: flex;               /* Alinea los botones en línea */
-    gap: 15px;                   /* Espaciado entre los botones */
-    margin-top: 20px;            /* Espacio superior */
-    justify-content: center;     /* Centra los botones */
+    display: flex;
+    /* Alinea los botones en línea */
+    gap: 15px;
+    /* Espaciado entre los botones */
+    margin-top: 20px;
+    /* Espacio superior */
+    justify-content: center;
+    /* Centra los botones */
 }
 
 .btn {
@@ -66,23 +74,27 @@ h3 {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    width: 150px;               /* Ancho fijo de los botones */
+    width: 150px;
+    /* Ancho fijo de los botones */
     text-align: center;
     transition: background-color 0.3s ease;
 }
 
 .btn-volver {
-    background-color: #1a73e8;  /* Azul */
+    background-color: #1a73e8;
+    /* Azul */
     color: white;
 }
 
 .btn-eliminar {
-    background-color: #e74c3c;  /* Rojo */
+    background-color: #e74c3c;
+    /* Rojo */
     color: white;
 }
 
 .btn-modificar {
-    background-color: #f39c12;  /* Naranja */
+    background-color: #f39c12;
+    /* Naranja */
     color: white;
 }
 
@@ -100,11 +112,14 @@ h3 {
 }
 
 .btn-descargar {
-    background-color: rgb(85, 33, 226);  /* Cambia el color de fondo a naranja */
-    color: white;  /* Cambia el color del texto a blanco */
-}  
+    background-color: rgb(85, 33, 226);
+    /* Cambia el color de fondo a naranja */
+    color: white;
+    /* Cambia el color del texto a blanco */
+}
 
 
 .btn-descargar:hover {
-    background-color: rgb(42, 9, 85);  /* Cambia el color cuando se pasa el mouse (opcional) */
+    background-color: rgb(42, 9, 85);
+    /* Cambia el color cuando se pasa el mouse (opcional) */
 }

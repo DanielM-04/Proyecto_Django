@@ -1,23 +1,19 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.utils import timezone
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Carrito, Producto, Categoria, ItemCarrito, Usuario
+from django.http import Http404
+from django.utils import timezone
 
 # Obtener los carritos de todos los usuarios
 def obtener_carritos():
-    try:
-        carrito = Carrito.objects.all()
-        data = {
-            'titulo': 'Página Principal',
-            'mensaje': 'Carrito.',
-            'carrito': carrito,
-            'total_ventas': Carrito.total_ventas()
-        }
-    except Exception as e:
-        data = {
-            'titulo': 'Error',
-            'mensaje': str(e)
-        }
+    carritos = Carrito.objects.all()
+    total_general_ventas = Carrito.total_ventas()
+    data = {
+        'titulo': 'Ventas Generales',
+        'mensaje': 'Listado de todos los carritos y ventas totales.',
+        'carrito': carritos,
+        'total_ventas': total_general_ventas
+    }
     return data
 
 # Obtener los detalles de un carrito específico
@@ -26,15 +22,16 @@ def obtener_carrito(id):
         carrito = Carrito.objects.get(id=id)
         items_del_carrito = ItemCarrito.objects.filter(carrito=carrito)
         data = {
-            'titulo': 'Detalles del Carrito',
-            'mensaje': 'Detalles del carrito.',
+            'titulo': f'Detalles del Carrito {carrito.id}',
+            'mensaje': f'Detalles del carrito de {carrito.usuario.username}.',
             'carrito': carrito,
             'item': items_del_carrito
         }
     except Carrito.DoesNotExist:
         data = {
             'titulo': 'Error',
-            'mensaje': 'Carrito no encontrado.'
+            'mensaje': f'Carrito con id {id} no encontrado.'
+            
         }
     return data
 
@@ -46,47 +43,78 @@ def mostrar_carritos(request):
 # Crear un nuevo carrito
 def generar_carrito(request, id=None):
     try:
-        usuario = Usuario.objects.get(id=id)
-        if usuario:
-            # Verifica si ya existe un carrito para el usuario
-            carrito_existente = Carrito.objects.filter(usuario=usuario).first()
-            if carrito_existente:
-                return HttpResponse("Ya existe un carrito para este usuario.")
+        if id is not None:
+            usuario = get_object_or_404(Usuario, id=id)
+            mensaje_usuario = f"para el usuario existente {usuario.username}"
+        else:
+            unique_username = f"user_auto_{timezone.now().strftime('%Y%m%d%H%M%S%f')}"
+            usuario = Usuario(username=unique_username)
+            usuario.set_password('defaultpassword123') 
+            usuario.save()
+            mensaje_usuario = f"para el nuevo usuario {usuario.username}"
+
+        carrito_existente = Carrito.objects.filter(usuario=usuario).first()
+        if carrito_existente:
+            return HttpResponse(f"Ya existe un carrito {mensaje_usuario}.")
         
-        nuevo_carrito = Carrito(
-            usuario=usuario
-        )
+        nuevo_carrito = Carrito(usuario=usuario)
         nuevo_carrito.save()
-        return HttpResponse("Carrito generado exitosamente.")
-    except Usuario.DoesNotExist:
+        return HttpResponse(f"Carrito generado exitosamente {mensaje_usuario} con ID de carrito {nuevo_carrito.id}.")
+
+    except Http404:
         return HttpResponse(f"Error: Usuario con id {id} no encontrado.", status=404)
     except Exception as e:
-        return HttpResponse(f"Error: {e}", status=500)
+        return HttpResponse(f"Error al generar el carrito: {e}", status=500)
 
 # Agregar un item al carrito
 def agregar_item_carrito(request, id_carrito, id_producto, cantidad=1):
     try:
-        carrito = Carrito.objects.get(id=id_carrito)
-        producto = Producto.objects.get(id=id_producto)
-        usuario = carrito.usuario
+        carrito = get_object_or_404(Carrito, id=id_carrito)
+        producto = get_object_or_404(Producto, id=id_producto)
         
-        # Crear el item del carrito
-        nuevo_item_carrito = ItemCarrito(
+        item_existente, created = ItemCarrito.objects.get_or_create(
             carrito=carrito,
             producto=producto,
-            cantidad=cantidad,
-            precio_unitario=producto.precio
+            defaults={'cantidad': cantidad, 'precio_unitario': producto.precio}
         )
-        nuevo_item_carrito.save()
-
-        return HttpResponse("Item agregado al carrito exitosamente.")
-    except Carrito.DoesNotExist:
-        return HttpResponse(f"Error: Carrito con id {id_carrito} no encontrado.", status=404)
-    except Producto.DoesNotExist:
-        return HttpResponse(f"Error: Producto con id {id_producto} no encontrado.", status=404)
+        if not created:
+            item_existente.cantidad += cantidad
+            item_existente.save()
+            mensaje = f"Cantidad del item '{producto.nombre}' actualizada en el carrito."
+        else:
+            mensaje = f"Item '{producto.nombre}' agregado al carrito."
+        
+        return HttpResponse(mensaje)
+    except Http404:
+        return HttpResponse("Error: Carrito o Producto no encontrado.", status=404)
     except Exception as e:
-        return HttpResponse(f"Error: {e}", status=500)
-    
+        return HttpResponse(f"Error al agregar item al carrito: {e}", status=500)
+
+def eliminar_carrito_vista(request, id_carrito):
+    if request.method == 'POST':
+        try:
+            carrito = get_object_or_404(Carrito, id=id_carrito)
+            carrito.delete()
+            return redirect('ventas_generales') 
+        except Http404:
+            return HttpResponse("Error: Carrito no encontrado.", status=404)
+        except Exception as e:
+            return HttpResponse(f"Error al eliminar el carrito: {e}", status=500)
+    return redirect('ventas_generales')
+
+def eliminar_item_carrito_vista(request, id_item_carrito):
+    if request.method == 'POST':
+        try:
+            item_carrito = get_object_or_404(ItemCarrito, id=id_item_carrito)
+            id_carrito_actual = item_carrito.carrito.id
+            item_carrito.delete()
+            return redirect('ventas_detalle', id=id_carrito_actual)
+        except Http404:
+            return HttpResponse("Error: Item de carrito no encontrado.", status=404)
+        except Exception as e:
+            return HttpResponse(f"Error al eliminar el item del carrito: {e}", status=500)
+    return redirect('ventas_generales')
+
 # Obtener los detalles de un carrito específico
 def obtener_venta_carrito(request, id):
     data = obtener_carrito(id)
@@ -95,7 +123,6 @@ def obtener_venta_carrito(request, id):
     return render(request, 'ventas_detalle.html', data)
 
 # Vista para mostrar los productos en el carrito
-
 def mostrar_productos_carrito(request, id):
     try:
         carrito = Carrito.objects.get(id=id)
@@ -112,15 +139,6 @@ def mostrar_productos_carrito(request, id):
             'mensaje': 'Carrito no encontrado.'
         }
     return render(request, 'mostrar_productos.html', data)
-
-
-
-
-
-
-
-
-
 
 # No se va a usar 
 def mostrar_productos(request):
@@ -139,7 +157,6 @@ def generar_usuario(request):
             password='contraseña_segura'
         )
         
-        # Asegurar que no existe
         if Usuario.objects.filter(username=nuevo_usuario.username).exists():
             return HttpResponse("El usuario ya existe.", status=400)
         
