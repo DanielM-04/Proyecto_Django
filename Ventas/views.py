@@ -1,6 +1,5 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-<<<<<<< HEAD
 from django.utils import timezone
 from .models import Carrito, Producto, Categoria, ItemCarrito, Usuario
 
@@ -95,7 +94,24 @@ def obtener_venta_carrito(request, id):
     print(f"ID del carrito: {id}")
     return render(request, 'ventas_detalle.html', data)
 
+# Vista para mostrar los productos en el carrito
 
+def mostrar_productos_carrito(request, id):
+    try:
+        carrito = Carrito.objects.get(id=id)
+        items_del_carrito = ItemCarrito.objects.filter(carrito=carrito)
+        data = {
+            'titulo': 'Detalles del Carrito',
+            'mensaje': 'Detalles del carrito.',
+            'carrito': carrito,
+            'item': items_del_carrito
+        }
+    except Carrito.DoesNotExist:
+        data = {
+            'titulo': 'Error',
+            'mensaje': 'Carrito no encontrado.'
+        }
+    return render(request, 'mostrar_productos.html', data)
 
 
 
@@ -153,11 +169,3 @@ def generar_producto(request):
     )
     nuevo_registro.save()
     return HttpResponse("Registro generado exitosamente.")
-=======
-from django.http import HttpResponse
-# Create your views here.
-
-
-def saludar(request):
-    return render(request, 'index_ventas.html', {"saludo":"hola desde la app de ventas"})
->>>>>>> Productos
