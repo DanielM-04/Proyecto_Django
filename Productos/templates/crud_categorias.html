@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>CRUD Categorías</title>
+    <link rel="stylesheet" href="{% static 'produbas.css' %}">
+</head>
+<body>
+    <div class="crudcategorias">
+    <h1>CRUD de Categorías</h1>
+
+   
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="nombre" placeholder="Nueva categoría" required>
+        <button type="submit" name="crear">Crear</button>
+    </form>
+
+    <hr>
+
+    <ul>
+        {% for categoria in categorias %}
+            <li>
+                <form method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="cat_id" value="{{ categoria.id }}">
+                    <input type="text" name="nuevo_nombre" value="{{ categoria.nombre }}" required>
+                    <button type="submit" name="editar">Editar</button>
+                </form>
+
+                <form method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="cat_id" value="{{ categoria.id }}">
+                    <button type="submit" name="eliminar" onclick="return confirm('¿Eliminar esta categoría?')">Eliminar</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>No hay categorías registradas.</li>
+        {% endfor %}
+    </ul>
+
+    <form method="post" action="{% url 'producto:lista' %}">
+        {% csrf_token %}
+        <button type="submit">Volver a productos</button>
+    </form>
+    </div>
+
+</body>
+</html>

@@ -1,72 +1,29 @@
+{% extends 'baseheader.html' %}
+{% block content%}
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Listado de Reportes</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #1a73e8;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-        .btn {
-            display: inline-block;
-            padding: 8px 12px;
-            background-color: #1a73e8;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-right: 5px;
-        }
-        .btn-danger {
-            background-color: #dc3545;
-        }
-        /* Estilo específico para el botón "ver" */
-        .btn-ver {
-            background-color: orange;  /* Cambia el color de fondo a naranja */
-            color: white;  /* Cambia el color del texto a blanco */
-        }  
-
-        .btn-ver:hover {
-            background-color: darkorange;  /* Cambia el color cuando se pasa el mouse (opcional) */
-        }
-
-    </style>
-</head>
+{% load static %}
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'style_listarReportes.css' %}">
+        <title>Listado de Reportes</title>
+    
+    </head>
 
 <body>
+    <form method="get" style="margin-bottom: 20px;">
+        <label>Desde $:</label>
+        <input type="number" name="monto_minimo" value="{{ request.GET.monto_minimo }}">
+
+        <label>Hasta $:</label>
+        <input type="number" name="monto_maximo" value="{{ request.GET.monto_maximo }}">
+
+        <button type="submit" class="btn">Filtrar</button>
+        <a href="{% url 'listar_reportes' %}" class="btn btn-ver">Limpiar</a>
+    </form>
     <div class="container">
-        <h1>Listado de Reportes Farmacy Heal the Disease¡¡</h1>
+        <h1>Listado de Reportes Farmacy Heal</h1>
         
         <table>
             <thead>
@@ -74,6 +31,9 @@
                     <th>Período</th>
                     <th>Total Ventas</th>
                     <th>Fecha</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
                     
                 </tr>
             </thead>
@@ -84,6 +44,8 @@
                     <td>${{ reporte.total_ventas }}</td>
                     <td>{{ reporte.fecha_creacion_reporte|date:"d/m/Y" }}</td>
                     <td><a href="{% url 'reporte' id_reporte=reporte.id %}" class="btn btn-ver">VER</td>
+                    <td> </td>
+
                         
                     </td>
                 </tr>
@@ -97,7 +59,9 @@
         
         <div style="margin-top: 20px;">
             <a href="{% url 'crear_reporte' %}" class="btn">Crear Nuevo Reporte</a>
+            <a href="{% url 'pdf_drogueria' %}" class="btn">Generar PDF</a>
         </div>
     </div>
 </body>
 </html>
+{%endblock%}

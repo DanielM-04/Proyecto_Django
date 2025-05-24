@@ -1,1 +1,50 @@
-<h1>Hola</h1>
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style_crearReporte.css' %}">
+</head>
+</head>
+<body>
+   <div class="form-container"> 
+    <form method="POST" action=" {% url 'guardar_cambios' id_modificar=data.id %}" >
+            {% csrf_token %}  
+
+            <h1> Modificar Reporte #{{data.id}}</h1>
+                
+                <p>
+                <label> Seleccione el periodo:</label>
+                    {{data.form.periodo}}
+                </p>
+                <p>
+                <label> Ingrese el total de Ventas</label>
+                    {{data.form.total_ventas}}
+                </p>
+                <p>
+                <label> Ingrese la cantidad de Transacciones</label>
+                    {{data.form.cantidad_transacciones}}
+                </p>
+                <p>
+                <label> Ingrese los metodos de pago</label>
+                    {{data.form.metodo_de_pago}}
+                </p>
+                <p>
+                <label> Ingrese los productos comprados</label>
+                    {{data.form.productos_comprados}}
+                </p>
+
+                <button> Guardar Cambios</button>
+
+
+            
+        </form>
+        
+    <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'listar_reportes' %}"><button> Atras</button> </a>
+    </div>
+
+        
+    </div>
+</body>
+</html>

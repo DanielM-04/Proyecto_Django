@@ -1,0 +1,80 @@
+.ranking-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.ranking-container h2 {
+    font-size: 25px;
+    color: #19ad86;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-container ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ranking-container li {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.producto-nombre {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.estrellas i {
+    font-size: 20px;
+    margin: 0 2px;
+}
+
+.estrellas .fas {
+    color: gold;
+}
+
+.estrellas .far {
+    color: lightgray;
+}
+
+.puntuacion {
+    margin-top: 5px;
+    color: #555;
+    font-size: 14px;
+}
+
+form.estrella {
+    margin-top: 15px;
+}
+
+form.estrella button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form.estrella button:hover {
+    background-color: #0c5fd3;
+}
+
+

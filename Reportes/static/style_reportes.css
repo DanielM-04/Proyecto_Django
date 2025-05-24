@@ -98,3 +98,16 @@ h3 {
 .btn-modificar:hover {
     background-color: #e67e22;
 }
+<<<<<<< HEAD
+=======
+
+.btn-descargar {
+    background-color: rgb(85, 33, 226);  /* Cambia el color de fondo a naranja */
+    color: white;  /* Cambia el color del texto a blanco */
+}  
+
+
+.btn-descargar:hover {
+    background-color: rgb(42, 9, 85);  /* Cambia el color cuando se pasa el mouse (opcional) */
+}
+>>>>>>> Ventas

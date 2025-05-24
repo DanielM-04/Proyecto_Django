@@ -1,6 +1,6 @@
 from django.db import models
 from Usuarios.models import Usuario
-from Productos.models import Producto
+from Productos.models import Producto, Categoria
 
 class Carrito(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
@@ -11,8 +11,13 @@ class Carrito(models.Model):
 
     @property
     def total_carrito(self):
-        # Calcula el total sumando los subtotales de todos los ItemCarrito asociados
-        return sum(item.subtotal for item in self.items.all())
+        items = ItemCarrito.objects.filter(carrito=self)
+        return sum(item.subtotal for item in items.all())
+
+    @classmethod
+    def total_ventas(cls):
+        return sum(carrito.total_carrito for carrito in cls.objects.all())
+
 
 class ItemCarrito(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE, related_name='items')

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'listapro.css' %}">
+{% endblock %}    
+
+
+
+{% block title %}Lista de Productos{% endblock %}
+
+
+
+{% block content %}
+<h2>📋Lista de Productos📋</h2>
+
+<div class="lista-container">
+{% if productos %}
+    {% for producto in productos %}
+        <div class="card-producto">
+            <div class="card-info">
+                {{ producto.nombre }} 🪼 ${{ producto.precio }}
+            </div>
+            <form method="POST" action="{% url 'producto:detalle' producto.id %}">
+                {% csrf_token %}
+                <button type="submit">Ver</button>
+            </form>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No hay productos registrados.</p>
+{% endif %}
+</div>
+
+<div class="acciones-formulario">
+    <form method="POST" action="{% url 'producto:crear' %}">
+        {% csrf_token %}
+        <button type="submit">Crear Producto</button>
+    </form>
+
+    <form method="POST" action="{% url 'producto:buscar' %}">
+        {% csrf_token %}
+        <button type="submit">Buscar / Filtrar</button>
+    </form>
+
+    <form method="POST" action="{% url 'producto:ranking' %}">
+        {% csrf_token %}
+        <button type="submit">Ver Ranking</button>
+    </form>
+
+    <form method="POST" action="{% url 'producto:comparar' %}">
+        {% csrf_token %}
+        <button type="submit">Comparar Productos</button>
+    </form>
+</div>
+{% endblock %}

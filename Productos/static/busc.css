@@ -1,0 +1,81 @@
+
+.pepe {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+.pepe input[type="text"],
+.pepe select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+
+.pepe button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pepe button:hover {
+    background-color: #0c5fd3;
+}
+
+h2 {
+    font-size: 25px;
+    color: #19ad86;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+.pepe h3 {
+    text-align: center;
+    margin-top: 30px;
+    color: #2c3e50;
+}
+
+.pepe ul {
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.pepe ul li {
+    background-color: #f9f9f9;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-weight: 500;
+    color: #333;
+    text-align: center;
+}
+
+
+.pepe p {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}

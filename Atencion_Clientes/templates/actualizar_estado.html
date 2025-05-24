@@ -1,0 +1,52 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'style_atencion.css' %}">
+
+<style>
+.btn.actualizar {
+    background-color: #3498db;  /* azul */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn.actualizar:hover {
+    background-color: #2980b9; 
+}
+
+.btn.cancelar {
+    background-color: #95a5a6; 
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn.cancelar:hover {
+    background-color: #7f8c8d;
+}
+</style>
+
+<div class="container">
+    <h1>Actualizar Estado del Ticket #{{ ticket.id }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="estado">Nuevo estado:</label>
+        <select name="estado" id="estado">
+            <option value="Pendiente" {% if ticket.estado == "Pendiente" %}selected{% endif %}>Pendiente</option>
+            <option value="En proceso" {% if ticket.estado == "En proceso" %}selected{% endif %}>En proceso</option>
+            <option value="Finalizado" {% if ticket.estado == "Finalizado" %}selected{% endif %}>Finalizado</option>
+        </select>
+        <br><br>
+        <button type="submit" class="btn actualizar">Actualizar</button>
+        <a href="{% url 'traer_tickets' %}" class="btn cancelar">Cancelar</a>
+    </form>
+</div>

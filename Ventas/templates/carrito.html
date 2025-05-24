@@ -1,0 +1,13 @@
+<h2>Total de ventas: ${{ total_ventas }}</h2>
+<h3>{{mensaje}}</h3>
+<h3>{{productos.id}}</h3>
+{% for item in carrito_items %}
+<h1>{{ item.producto }}</h1>
+<ul>
+    <li>ID: {{ item.id }}</li>
+    <li>Precio Unitario: ${{ item.precio_unitario }}</li>
+    <li>Cantidad: {{ item.cantidad }}</li>
+    <li>Subtotal: ${{ item.subtotal }}</li>
+    <li>Subtotal: ${{ item.fecha_creacion }}</li>
+</ul>
+{% endfor %}

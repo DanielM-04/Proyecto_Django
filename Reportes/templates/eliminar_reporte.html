@@ -4,10 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Eliminar_Reporte</title>
+    <link rel="stylesheet" href="{% static 'style_reportes.css' %}">
 </head>
 <body>
-    <h1>Hola </h1>
-    {{Saludar}}
+    {% include "modulo_reporte.html" %}
+
+    <div class="button-container">  
+            <a href="{% url 'listar_reportes'  %}"><button class="btn btn-volver">Volver</button></a>      
+            <a href="{% url 'eliminar_reporte' id_eliminar=reporte.id %}"><button class="btn btn-eliminar">Confirmar Eliminacion del Reporte</button></a>
+    </div>
+    
 </body>
 </html>
