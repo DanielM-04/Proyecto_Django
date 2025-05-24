@@ -1,0 +1,49 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f4f7fc;
+    color: #333;
+    padding: 2rem;
+}
+h1 {
+    color: #2a3f54;
+    margin-bottom: 2rem;
+}
+.stats-container {
+    display: flex;
+    gap: 2rem;
+    max-width: 600px;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.stat-box {
+    flex: 1;
+    background: #4a90e2;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: background 0.3s ease;
+    cursor: default;
+}
+.stat-box:hover {
+    background: #357abd;
+}
+.stat-box h2 {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: bold;
+}
+.stat-box p {
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+}
