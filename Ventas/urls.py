@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     obtener_venta_carrito, generar_producto, mostrar_carritos, 
     agregar_item_carrito, generar_carrito, mostrar_productos_carrito, 
-    generar_usuario, eliminar_carrito_vista, eliminar_item_carrito_vista # Añadir nuevas vistas
+    generar_usuario, eliminar_carrito_vista, eliminar_item_carrito_vista
 )
 
 urlpatterns = [
