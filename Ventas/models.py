@@ -93,7 +93,7 @@ class Devolucion(models.Model):
     ]
 
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE, related_name='devoluciones')
-    motivo = models.TextField() # TextField podría ser más apropiado para un motivo detallado
+    motivo = models.TextField()
     fecha_devolucion = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=50, choices=ESTADO_DEVOLUCION_CHOICES, default='Pendiente')
 

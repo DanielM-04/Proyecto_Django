@@ -4,8 +4,6 @@ from .models import Producto, Categoria, Resena
 from django.db.models import F, FloatField, ExpressionWrapper
 from .forms import ProductoForm 
 
-# --- CRUDs de mierda---
-
 def lista_productos(request):
     productos = Producto.objects.all()
     return render(request, 'lista.html', {'productos': productos})

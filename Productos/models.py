@@ -19,8 +19,6 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
-# --- esta mierda ---
-
 class Resena(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE, related_name='resenas')
     usuario = models.CharField(max_length=100)  
