@@ -44,18 +44,17 @@ class ProcesoCheckout(models.Model):
         ('TarjetaCredito', 'Tarjeta de Crédito'),
         ('TarjetaDebito', 'Tarjeta de Débito'),
         ('PSE', 'PSE'),
-        ('Efectivo', 'Efectivo'), # Ejemplo, si aplica
+        ('Efectivo', 'Efectivo'),
     ]
 
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
     direccion_envio = models.CharField(max_length=255)
     metodo_pago = models.CharField(max_length=50, choices=METODO_PAGO_CHOICES)
     estado_pago = models.CharField(max_length=50, choices=ESTADO_PAGO_CHOICES, default='Pendiente')
-    fecha_pago = models.DateTimeField(auto_now_add=True) # Considerar null=True, blank=True si el pago no es inmediato
+    fecha_pago = models.DateTimeField(auto_now_add=True)
 
     @property
     def total(self):
-        # El total del checkout es el total del carrito asociado
         return self.carrito.total_carrito
 
     def __str__(self):
@@ -64,9 +63,6 @@ class ProcesoCheckout(models.Model):
 class Factura(models.Model):
     proceso_checkout = models.OneToOneField(ProcesoCheckout, on_delete=models.CASCADE)
     fecha_emision = models.DateTimeField(auto_now_add=True)
-    # Podrías añadir un campo para el número de factura si es necesario
-    # numero_factura = models.CharField(max_length=50, unique=True, blank=True, null=True)
-
 
     def __str__(self):
         return f"Factura {self.id} para {self.proceso_checkout.carrito.usuario.username} - {self.fecha_emision.strftime('%Y-%m-%d')}"
@@ -78,7 +74,7 @@ class Factura(models.Model):
 class HistorialCompras(models.Model):
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='historial_compras')
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE)
-    fecha_compra = models.DateTimeField(auto_now_add=True) # Esto podría ser redundante si Factura.fecha_emision es suficiente
+    fecha_compra = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Compra de {self.usuario.username} - Factura {self.factura.id} - {self.fecha_compra.strftime('%Y-%m-%d')}"
@@ -97,8 +93,6 @@ class Devolucion(models.Model):
     ]
 
     factura = models.ForeignKey(Factura, on_delete=models.CASCADE, related_name='devoluciones')
-    # Considerar añadir una relación a ItemCarrito si las devoluciones son por ítem específico
-    # item_carrito = models.ForeignKey(ItemCarrito, on_delete=models.SET_NULL, null=True, blank=True)
     motivo = models.TextField() # TextField podría ser más apropiado para un motivo detallado
     fecha_devolucion = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=50, choices=ESTADO_DEVOLUCION_CHOICES, default='Pendiente')
