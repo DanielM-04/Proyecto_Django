@@ -51,12 +51,11 @@ h3 {
     font-weight: bold;
 }
 
-/* Estilos para los botones */
 .button-container {
-    display: flex;               /* Alinea los botones en línea */
-    gap: 15px;                   /* Espaciado entre los botones */
-    margin-top: 20px;            /* Espacio superior */
-    justify-content: center;     /* Centra los botones */
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
 }
 
 .btn {
@@ -66,27 +65,26 @@ h3 {
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    width: 150px;               /* Ancho fijo de los botones */
+    width: 150px;
     text-align: center;
     transition: background-color 0.3s ease;
 }
 
 .btn-volver {
-    background-color: #1a73e8;  /* Azul */
+    background-color: #1a73e8;
     color: white;
 }
 
 .btn-eliminar {
-    background-color: #e74c3c;  /* Rojo */
+    background-color: #e74c3c;
     color: white;
 }
 
 .btn-modificar {
-    background-color: #f39c12;  /* Naranja */
+    background-color: #f39c12;
     color: white;
 }
 
-/* Hover para los botones */
 .btn-volver:hover {
     background-color: #0d62c9;
 }
@@ -98,16 +96,13 @@ h3 {
 .btn-modificar:hover {
     background-color: #e67e22;
 }
-<<<<<<< HEAD
-=======
 
 .btn-descargar {
-    background-color: rgb(85, 33, 226);  /* Cambia el color de fondo a naranja */
-    color: white;  /* Cambia el color del texto a blanco */
+    background-color: rgb(85, 33, 226); 
+    color: white;
 }  
 
 
 .btn-descargar:hover {
-    background-color: rgb(42, 9, 85);  /* Cambia el color cuando se pasa el mouse (opcional) */
+    background-color: rgb(42, 9, 85);
 }
->>>>>>> Ventas

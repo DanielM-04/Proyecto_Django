@@ -49,13 +49,12 @@ tr:hover {
     background-color: #dc3545;
 }
 
-/* Estilo específico para el botón "ver" */
 .btn-ver {
-    background-color: orange;  /* Cambia el color de fondo a naranja */
-    color: white;  /* Cambia el color del texto a blanco */
+    background-color: orange;
+    color: white;
 }  
 
 .btn-ver:hover {
-    background-color: darkorange;  /* Cambia el color cuando se pasa el mouse (opcional) */
+    background-color: darkorange;
 }
 
